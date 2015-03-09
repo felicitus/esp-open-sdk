@@ -19,7 +19,7 @@ STANDALONE = y
 
 .PHONY: crosstool-NG toolchain libhal libcirom sdk
 
-all: esptool libcirom standalone sdk sdk_patch $(TOOLCHAIN)/xtensa-lx106-elf/sysroot/usr/lib/libhal.a $(TOOLCHAIN)/bin/xtensa-lx106-elf-gcc
+all: libcirom standalone sdk sdk_patch $(TOOLCHAIN)/xtensa-lx106-elf/sysroot/usr/lib/libhal.a $(TOOLCHAIN)/bin/xtensa-lx106-elf-gcc 
 	@echo
 	@echo "Xtensa toolchain is built, to use it:"
 	@echo
@@ -36,8 +36,11 @@ else
 	@echo
 endif
 
-esptool: toolchain
-	cp esptool/esptool.py $(TOOLCHAIN)/bin/
+esptool: $(TOOLCHAIN)/esptool/bin/esptool.py
+	
+$(TOOLCHAIN)/esptool/bin/esptool.py : esptool/setup.py esptool/esptool.py
+	virtualenv2 $(TOOLCHAIN)/esptool/
+	bash -c 'source $(TOOLCHAIN)/esptool/bin/activate; cd esptool; python setup.py install'
 
 $(TOOLCHAIN)/xtensa-lx106-elf/sysroot/lib/libcirom.a: $(TOOLCHAIN)/xtensa-lx106-elf/sysroot/lib/libc.a $(TOOLCHAIN)/bin/xtensa-lx106-elf-gcc
 	@echo "Creating irom version of libc..."
