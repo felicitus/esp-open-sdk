@@ -11,15 +11,18 @@ Modifications:
 
 Install TLDR;
 -------------
+```
+git clone https://github.com/LongHairedHacker/esp-open-sdk.git
+cd esp-open-sdk
 make STANDALONE=n
-
+```
 Using TLDR;
 -----------
 Source setupenv.sh in your shell to setup the required environment variables.
 
 
 Original README
----------------
+===============
 This repository provides the integration scripts to build a complete
 standalone SDK (with toolchain) for software development with the
 Espressif ESP8266 and ESP8266EX chips.
