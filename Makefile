@@ -23,13 +23,13 @@ all: esptool libcirom standalone sdk sdk_patch $(TOOLCHAIN)/xtensa-lx106-elf/sys
 	@echo
 	@echo "Xtensa toolchain is built, to use it:"
 	@echo
-	@echo 'export PATH=$(TOOLCHAIN)/bin:$$PATH'
+	@echo "source $(TOP)/setupenv.sh"
 	@echo
 ifneq ($(STANDALONE),y)
 	@echo "Espressif ESP8266 SDK is installed. Toolchain contains only Open Source components"
 	@echo "To link external proprietary libraries add:"
 	@echo
-	@echo "xtensa-lx106-elf-gcc -I$(TOP)/sdk/include -L$(TOP)/sdk/lib"
+	@echo 'xtensa-lx106-elf-gcc -I$$ESP_INCLUDE -L$$ESP_LIB'
 	@echo
 else
 	@echo "Espressif ESP8266 SDK is installed, its libraries and headers are merged with the toolchain"

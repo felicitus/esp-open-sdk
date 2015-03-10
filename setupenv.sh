@@ -9,6 +9,7 @@ export  VIRTUAL_ENV=$DIR/xtensa-lx106-elf/esptool
 
 export PATH=$DIR/xtensa-lx106-elf/bin:$VIRTUAL_ENV/bin/:$PATH
 
+export ESP_SDK=$DIR/sdk
 export ESP_INCLUDE=$DIR/sdk/include
 export ESP_LIB=$DIR/sdk/lib
 
