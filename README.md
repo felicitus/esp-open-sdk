@@ -20,6 +20,13 @@ Using TLDR;
 -----------
 Source setupenv.sh in your shell to setup the required environment variables.
 
+To compile the blinky example:
+```
+cd esp-open-sdk/example/
+source ../setupenv.sh
+make
+make flash
+```
 
 Original README
 ===============
