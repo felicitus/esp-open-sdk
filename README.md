@@ -1,6 +1,25 @@
-esp-open-sdk
-------------
+esp-open-sdk - sebastians special blend
+=======================================
+This is the esp-open-sdk in a slightly modified version for my
+[ESP8266 breakout board](https://github.com/LongHairedHacker/ESP8266-breakout).
+If you don't use this board and you don't have good reason for using this
+version of the sdk go to https://github.com/pfalcon/esp-open-sdk and grab the original.
 
+Modifications:
+* Added my version of esptool, supporting ftdi gpios for reset
+* Added setupenv.sh script for setting $PATH and $VIRTUAL_ENV for python
+
+Install TLDR;
+-------------
+make STANDALONE=n
+
+Using TLDR;
+-----------
+Source setupenv.sh in your shell to setup the required environment variables.
+
+
+Original README
+---------------
 This repository provides the integration scripts to build a complete
 standalone SDK (with toolchain) for software development with the
 Espressif ESP8266 and ESP8266EX chips.
