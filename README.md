@@ -62,21 +62,51 @@ OpenSource components of the SDK are based on:
   http://www.unix.com/man-page/freebsd/9/NET80211
   (source withheld by Espressif)
 
-Building
-========
+
+Requirements and Dependencies
+=============================
 
 To build the standalone SDK and toolchain, you need a GNU/POSIX system
 (Linux, BSD, MacOSX, Windows with Cygwin) with the standard GNU development
-tools installed: gcc, binutils, flex, bison, etc. For Ubuntu 14.04
-run:
+tools installed: gcc, binutils, flex, bison, etc.
 
+## Debian/Ubuntu
+
+Ubuntu 14.04:
 ```
 $ sudo apt-get install make unrar autoconf automake libtool gcc g++ gperf \
-    flex bison texinfo gawk ncurses-dev libexpat-dev python sed
+    flex bison texinfo gawk ncurses-dev libexpat-dev python python-serial sed \
+    git
 ```
 
-For other Debian/Ubuntu versions, dependencies may be somewhat different.
-E.g. you may need to install libtool-bin, etc.
+Later Debian/Ubuntu versions may require:
+```
+$ sudo apt-get install libtool-bin
+```
+
+## MacOS:
+```bash
+$ brew tap homebrew/dupes
+$ brew install binutils coreutils automake wget gawk libtool gperf gnu-sed --with-default-names grep
+$ export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+```
+
+In addition to the development tools MacOS needs a case-sensitive filesystem.
+You might need to create a virtual disk and build esp-open-sdk on it:
+```bash
+$ sudo hdiutil create ~/Documents/case-sensitive.dmg -volname "case-sensitive" -size 10g -fs "Case-sensitive HFS+"
+$ sudo hdiutil mount ~/Documents/case-sensitive.dmg
+$ cd /Volumes/case-sensitive
+```
+
+Building
+========
+
+Be sure to clone recursively:
+
+```
+$ git clone --recursive https://github.com/pfalcon/esp-open-sdk.git
+```
 
 The project can be built in two modes:
 
@@ -125,12 +155,13 @@ The extra -I and -L flags are not needed when using the standalone SDK.
 
 Pulling updates
 ===============
-The project is updated from time to time, to update and prepare to
+The project is updated from time to time, to get updates and prepare to
 build a new SDK, run:
 
 ```
 $ make clean
 $ git pull
+$ git submodule sync
 $ git submodule update
 ```
 
@@ -144,3 +175,23 @@ Additional configuration
 You can build a statically linked toolchain by uncommenting
 `CT_STATIC_TOOLCHAIN=y` in the file `crosstool-config-overrides`. More
 fine-tunable options may be available in that file and/or Makefile.
+
+License
+=======
+
+esp-open-sdk is in its nature merely a makefile, and is in public domain.
+However, the toolchain this makefile builds consists of many components,
+each having its own license. You should study and abide them all.
+
+Quick summary: gcc is under GPL, which means that if you're distributing
+a toolchain binary you must be ready to provide complete toolchain sources
+on the first request.
+
+Since version 1.1.0, vendor SDK comes under modified MIT license. Newlib,
+used as C library comes with variety of BSD-like licenses. libgcc, compiler
+support library, comes with a linking exception. All the above means that
+for applications compiled with this toolchain, there are no specific
+requirements regarding source availability of the application or toolchain.
+(In other words, you can use it to build closed-source applications).
+(There're however standard attribution requirements - see licences for
+details).
