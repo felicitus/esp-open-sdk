@@ -13,7 +13,7 @@ Install TLDR;
 -------------
 ```
 sudo apt-get install make unrar autoconf automake libtool gcc g++ gperf \
-    flex bison texinfo gawk ncurses-dev libexpat-dev \
+    flex bison texinfo gawk ncurses-dev libtool-bin libexpat-dev \
 	python sed python-virtualenv
 git clone https://github.com/LongHairedHacker/esp-open-sdk.git
 cd esp-open-sdk
